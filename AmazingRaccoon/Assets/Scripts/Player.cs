@@ -25,6 +25,16 @@ public class Player : MonoBehaviour
             jumpPressed = true;
         }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.transform.tag == "VerticalWall")
+        {
+            horizontal = horizontal * 1 / 2;
+            print("On wall");
+        }
+        print("touch");
+    }
+
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(
@@ -36,10 +46,8 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpPressed = false;
         }
-
+        
     }
 
     
-
-
 }
