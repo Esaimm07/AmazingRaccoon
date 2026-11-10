@@ -4,10 +4,8 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jumpForce = 5;
-    public float horizontal;
-    public bool jumpPressed;
+    public float jumpForce = 5,horizontal,speed;
+    public bool jumpPressed = false, onWall = false,onFloor = false;
     Rigidbody2D rb;
 
     void Start()
@@ -15,24 +13,14 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
 
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && ((onWall == true) || (onFloor == true)))
         {
             jumpPressed = true;
         }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.transform.tag == "VerticalWall")
-        {
-            horizontal = horizontal * 1 / 2;
-            print("On wall");
-        }
-        print("touch");
     }
 
     void FixedUpdate()
@@ -48,6 +36,44 @@ public class Player : MonoBehaviour
         }
         
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "VerticalWall")
+        {
+            if (!onWall)
+            {
+                print("On wall");
+            }
+            onWall = true;
+        }
+        if (collision.transform.tag == "Floor")
+        {
+            if (!onFloor)
+            {
+                print("On floor");
+            }
+            onFloor = true;
+        }
+    }
 
-    
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "VerticalWall")
+        {
+            if (onWall)
+            {
+                print("Off wall");
+            }
+            onWall = false;
+        }
+        if (collision.transform.tag == "Floor")
+        {
+            if (onFloor)
+            {
+                print("Off floor");
+            }
+            onFloor = false;
+        }
+    }
+
 }

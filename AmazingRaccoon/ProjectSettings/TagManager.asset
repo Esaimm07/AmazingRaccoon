@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - VerticalWall
+  - Floor
   layers:
   - Default
   - TransparentFX

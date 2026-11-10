@@ -504,10 +504,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f816c6e48d791c48b6f4a51b11d15d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  speed: 5
   jumpForce: 10
   horizontal: 0
+  speed: 5
   jumpPressed: 0
+  onWall: 0
+  onFloor: 0
 --- !u!50 &868935890
 Rigidbody2D:
   serializedVersion: 5
@@ -594,7 +596,7 @@ GameObject:
   - component: {fileID: 1004429430}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
