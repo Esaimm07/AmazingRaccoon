@@ -651,12 +651,17 @@ MonoBehaviour:
   speed: 7.5
   gravity: 2
   slidingSpeed: 2
-  acc: 75
+  acc: 60
   decc: 15
+  sprintSpeed: 10
+  sprintAcc: 75
+  currentSpeed: 7.5
+  currentAcc: 60
   jumpPressed: 0
   onWall: 0
   onFloor: 0
   sliding: 0
+  lookingLeft: 0
 --- !u!50 &868935890
 Rigidbody2D:
   serializedVersion: 5
