@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
+        #region Main Move
         float targetSpeed = horizontal * speed;
         float rate;
 
@@ -51,21 +52,18 @@ public class Player : MonoBehaviour
         float newVelocityX = Mathf.MoveTowards(rb. linearVelocity.x, targetSpeed, rate * Time.fixedDeltaTime);
 
         rb.linearVelocity = new Vector2(newVelocityX, rb.linearVelocity.y);
-
-
+        #endregion
 
         if (jumpPressed && onWall)
         {
             rb.linearVelocity = new Vector2(jumpForce, jumpForce);
             sliding = false;
-            print("wall jump");
 
         }
         else if (jumpPressed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpPressed = false;
-            print("normal jump");
         }
     }
 
@@ -79,45 +77,47 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.transform.tag == "VerticalWall")
-        {
-            if (!onWall)
-            {
-                print("On wall");
-                sliding = true;
-            }
-            rb.gravityScale = 0;
-            onWall = true;
-        }
-        if (collision.transform.tag == "Floor")
-        {
-            if (!onFloor)
-            {
-                print("On floor");
-            }
-            onFloor = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "VerticalWall")
+        if(collision.transform.tag == "Obstacle")
         {
             if (onWall)
             {
-                print("Off wall");
-                sliding = false;
-            }
-            rb.gravityScale = gravity;
-            onWall = false;
+                sliding = true;
+                rb.gravityScale = 0;
+                onFloor = false;
+            }         
         }
-        if (collision.transform.tag == "Floor")
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!onWall && collision.transform.tag == "Obstacle")
         {
-            if (onFloor)
-            {
-                print("Off floor");
-            }
+            onFloor = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!onWall && collision.transform.tag == "Obstacle")
+        {
             onFloor = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Obstacle")
+        {
+            onWall = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Obstacle")
+        {
+            onWall = false;
+            onFloor = false;
+            rb.gravityScale = gravity;
+            sliding = false;
         }
     }
 

@@ -4,8 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - VerticalWall
-  - Floor
+  - Obstacle
   layers:
   - Default
   - TransparentFX
