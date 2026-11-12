@@ -63,12 +63,12 @@ public class Player : MonoBehaviour
         #region Jumps
         if (jumpPressed && onWall && lookingLeft)
         {
-            rb.linearVelocity = new Vector2(jumpForce, jumpForce);
+            rb.linearVelocity = new Vector2(jumpForce/2, jumpForce);
             sliding = false;
         }
         else if (jumpPressed && onWall && !lookingLeft)
         {
-            rb.linearVelocity = new Vector2(-jumpForce, jumpForce);
+            rb.linearVelocity = new Vector2(-jumpForce/2, jumpForce);
             sliding = false;
         }
         else if (jumpPressed)
@@ -109,17 +109,12 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.tag == "Obstacle")
         {
-            if (onWall)
+            if (!onWall)
             {
-                sliding = true;
-                rb.gravityScale = 0;
-                onFloor = false;
+                onFloor = true;
             }
         }
-        if (!onWall && collision.transform.tag == "Obstacle")
-        {
-            onFloor = true;
-        }
+        
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -132,17 +127,18 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Obstacle")
+        if(collision.tag == "Obstacle" && !onFloor)
         {
             onWall = true;
+            sliding = true;
+            rb.gravityScale = 0;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Obstacle")
+        if (collision.tag == "Obstacle" && !onFloor)
         {
             onWall = false;
-            onFloor = false;
             rb.gravityScale = gravity;
             sliding = false;
         }
