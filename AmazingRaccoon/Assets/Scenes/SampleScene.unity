@@ -648,15 +648,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   jumpForce: 10
   horizontal: 0
-  speed: 7.5
+  speed: 6
   gravity: 2
   slidingSpeed: 2
-  acc: 60
+  acc: 50
   decc: 15
-  sprintSpeed: 10
+  sprintSpeed: 7.5
   sprintAcc: 75
-  currentSpeed: 7.5
-  currentAcc: 60
+  currentSpeed: 6
+  currentAcc: 50
   jumpPressed: 0
   onWall: 0
   onFloor: 0
