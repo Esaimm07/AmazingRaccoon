@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float jumpForce = 10f, horizontal, speed = 7.5f, gravity = 2f,slidingSpeed = 2f;
     public float acc = 60f, decc = 15f, sprintSpeed = 10f, sprintAcc = 75f, currentSpeed = 7.5f, currentAcc = 60f;
     public bool jumpPressed = false, onWall = false, onFloor = false, sliding = false, lookingLeft;
+    public BoxCollider2D horizontalCollider, verticalCollider;
     Rigidbody2D rb;
 
     void Start()
